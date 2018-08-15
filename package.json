@@ -1,0 +1,36 @@
+{
+  "name": "react-bulma",
+  "version": "0.1.0",
+  "description": "React components based on Bulma.io",
+  "main": "index.js",
+  "module": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CleyFaye/react-bulma.git"
+  },
+  "keywords": [
+    "react",
+    "bulma"
+  ],
+  "author": "Gabriel Paul \"Cley Faye\" Risterucci",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CleyFaye/react-bulma/issues"
+  },
+  "homepage": "https://github.com/CleyFaye/react-bulma#readme",
+  "dependencies": {
+    "esm": "^3.0.76",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-plugin-react": "^7.11.1"
+  }
+}
