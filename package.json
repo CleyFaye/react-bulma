@@ -2,12 +2,13 @@
   "name": "react-bulma",
   "version": "0.1.0",
   "description": "React components based on Bulma.io",
-  "main": "lib",
+  "main": "dist",
+  "module": "lib",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "grunt"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,13 @@
     "react": "^16.4.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "eslint": "^5.3.0",
-    "eslint-plugin-react": "^7.11.1"
+    "eslint-plugin-react": "^7.11.1",
+    "grunt": "^1.0.3",
+    "grunt-babel": "^8.0.0",
+    "load-grunt-tasks": "^4.0.0"
   }
 }
