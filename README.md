@@ -15,5 +15,10 @@ ReactDOM.render(<Box>
 appElem);
 ```
 
+## Compatibility
+The built files target the following browserstring: "last 2 version, > 1%, not dead" and might reference the `@babel/polyfill` dependencies.
+The files doesn't require extra conversion, and might target ES5 (as long as such browser meet the above browserstring requirements).
+No JSX is present in the built files.
+
 ## Bugs and inconsistencies
 Probably a lot. This is a work in progress.
