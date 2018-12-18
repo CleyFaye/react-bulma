@@ -12,9 +12,8 @@ module.exports = grunt => {
           [
             "@babel/preset-env",
             {
-              targets: {
-                node: true,
-              },
+              modules: false,
+              targets: "last 2 version, > 1%, not dead",
             },
           ],
           "@babel/preset-react",
@@ -28,7 +27,7 @@ module.exports = grunt => {
             "**/*.js",
             "**/*.mjs",
           ],
-          ext: ".js",
+          /*          ext: ".js",*/
           dest: "dist",
         }],
       },
