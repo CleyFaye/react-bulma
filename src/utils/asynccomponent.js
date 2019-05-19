@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import Component from "./component";
 
 /** Helper to have components that load asynchronous data and must show a
@@ -10,19 +9,26 @@ import Component from "./component";
  *
  * To handle an asynchronous process, call AsyncComponent.load().
  *
- * To make the component display its loading state by default set the
- * "initialLoading" prop.
+ * To make the component display its loading state by default call the
+ * initLoading() method.
  */
 export default class AsyncComponent extends Component {
   constructor(props) {
     super(props);
-    const initialLoadingCount = (props && props.initialLoading)
-      ? true
-      : 0;
     this.prepareState({
-      loadingCount: initialLoadingCount,
-      loading: initialLoadingCount !== 0,
+      loadingCount: 0,
+      loading: false,
       error: null,
+    });
+  }
+
+  /** Must be called in the constructor if you want to initially display a
+   * loading state.
+   */
+  initLoading() {
+    this.prepareState({
+      loadingCount: true,
+      loading: true,
     });
   }
 
@@ -64,6 +70,3 @@ export default class AsyncComponent extends Component {
       });
   }
 }
-AsyncComponent.propTypes = {
-  initialLoading: PropTypes.bool,
-};
