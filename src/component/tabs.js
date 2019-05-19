@@ -34,15 +34,19 @@ export default class Tabs extends Component {
 
   render() {
     const classes = ["tabs"];
-    let activeTab = 0;
+    const childArray = React.Children.toArray(this.props.children);
     return <div className={classString(classes, this.props.className)}>
       <ul>
-        {React.Children.map(this.props.children, child => {
+        {childArray.map((child, activeTab) => {
+          if (this.props.tabViewRef
+            && this.props.tabViewRef.state.tabHidden[activeTab]) {
+            return null;
+          }
           const tabId = activeTab;
           let newProps = Object.assign({},
             child.props,
             {
-              active: activeTab++ === this.props.activeId,
+              active: activeTab === this.props.activeId,
               onClick: () => this.handleTabClick(tabId),
             });
           return React.cloneElement(child, newProps);
@@ -55,6 +59,7 @@ Tabs.propTypes = {
   className: classNamePropType,
   activeId: PropTypes.number,
   children: PropTypes.node,
+  tabViewRef: PropTypes.object,
   onTabClick: PropTypes.func,
 };
 
@@ -100,10 +105,51 @@ Tabs.Tab = Tab;
  * The first children will be used as the tab title
  */
 class Panel extends Component {
+  constructor(props) {
+    super(props);
+    this._updateTabViewer();
+  }
+
+  _updateTabViewer() {
+    if (!this.props.tabViewRef) {
+      return;
+    }
+    this.props.tabViewRef.setState(
+      oldState => {
+        const tabHidden = oldState.tabHidden.slice();
+        const tabTitles = oldState.tabTitles.slice();
+        tabHidden[this.props.tabId] = this.props.hidden;
+        tabTitles[this.props.tabId] = this.props.title;
+        return {
+          tabHidden,
+          tabTitles,
+        };
+      }
+    );
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!this.props.tabViewRef) {
+      return;
+    }
+    if (prevProps.hidden != this.props.hidden
+      || prevProps.title != this.props.title) {
+      this._updateTabViewer();
+    }
+  }
+
+  _shouldrender() {
+    return (!this.props.tabViewRef
+      || this.props.tabViewRef.state.activeTab == this.props.tabId);
+  }
+
   render() {
+    if (!this._shouldrender()) {
+      return null;
+    }
     const classes = ["tabs-panel"];
     return <div className={classString(classes, this.props.className)}>
-      {React.Children.toArray(this.props.children).slice(1)}
+      {this.props.children}
     </div>;
   }
 }
@@ -112,6 +158,9 @@ Panel.propTypes = {
   tabClassName: classNamePropType,
   children: PropTypes.node,
   hidden: PropTypes.bool,
+  title: PropTypes.string,
+  tabId: PropTypes.number,
+  tabViewRef: PropTypes.object,
 };
 Tabs.Panel = Panel;
 
@@ -139,6 +188,8 @@ class View extends Component {
     super(props);
     this.prepareState({
       activeTab: this.props.initialTab,
+      tabTitles: [],
+      tabHidden: [],
     });
     this.selfBind(this.handleTabClick);
   }
@@ -150,23 +201,32 @@ class View extends Component {
   }
 
   render() {
-    let tabId = 0;
-    const tabs = React.Children.map(this.props.children, child =>
-      child.props.hidden
-        ? null
-        : <Tabs.Tab
-          key={tabId++}
-          className={child.props.tabClassName}>
-          {React.Children.toArray(child.props.children)[0]}
-        </Tabs.Tab>);
+    const childArray = React.Children.toArray(this.props.children);
+    const tabs = childArray.map(
+      (child, tabId) => <Tabs.Tab
+        key={tabId}
+        tabId={tabId}
+        className={child.props.tabClassName}>
+        {this.state.tabTitles[tabId]}
+      </Tabs.Tab>
+    );
     const classes = ["tabs-view"];
     return <div className={classString(classes, this.props.className)}>
-      <Tabs activeId={this.state.activeTab} onTabClick={this.handleTabClick}>
+      <Tabs
+        activeId={this.state.activeTab}
+        tabViewRef={this}
+        onTabClick={this.handleTabClick}>
         {tabs}
       </Tabs>
-      {this.state.activeTab !== undefined
-        ? this.props.children[this.state.activeTab]
-        : null}
+      {childArray.map(
+        (panel, tabId) => React.cloneElement(
+          panel,
+          {
+            tabId,
+            tabViewRef: this,
+          }
+        )
+      )}
     </div>;
   }
 }
