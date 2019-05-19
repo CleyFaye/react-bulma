@@ -119,7 +119,7 @@ export class Column extends React.Component {
     bringAll(classes, this.props);
     addClassesWithViewportSuffix(
       classes,
-      this.props.size,
+      this.props.colSize,
       value => columnSizeToClassName(value, false));
     addClassesWithViewportSuffix(
       classes,

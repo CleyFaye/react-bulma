@@ -1,3 +1,2 @@
  - Tabs improvement: do not use a "title" props in Tabs.Panel but instead use the first child as title, second child as content
  - Tabs improvement: add a "visible" props to Tabs.Panel
- - Make column use colSize instead of size
