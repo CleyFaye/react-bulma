@@ -95,21 +95,23 @@ Tabs.Tab = Tab;
  * Props:
  * - className
  * - tabClassName
- * - title
+ * - hidden: control if the tab should be visible in a tab list
+ * 
+ * The first children will be used as the tab title
  */
 class Panel extends Component {
   render() {
     const classes = ["tabs-panel"];
     return <div className={classString(classes, this.props.className)}>
-      {this.props.children}
+      {React.Children.toArray(this.props.children).slice(1)}
     </div>;
   }
 }
 Panel.propTypes = {
   className: classNamePropType,
   tabClassName: classNamePropType,
-  title: PropTypes.string,
   children: PropTypes.node,
+  hidden: PropTypes.bool,
 };
 Tabs.Panel = Panel;
 
@@ -149,11 +151,14 @@ class View extends Component {
 
   render() {
     let tabId = 0;
-    const tabs = React.Children.map(this.props.children, child => <Tabs.Tab
-      key={tabId++}
-      className={child.props.tabClassName}>
-      {child.props.title}
-    </Tabs.Tab>);
+    const tabs = React.Children.map(this.props.children, child =>
+      child.props.hidden
+        ? null
+        : <Tabs.Tab
+          key={tabId++}
+          className={child.props.tabClassName}>
+          {React.Children.toArray(child.props.children)[0]}
+        </Tabs.Tab>);
     const classes = ["tabs-view"];
     return <div className={classString(classes, this.props.className)}>
       <Tabs activeId={this.state.activeTab} onTabClick={this.handleTabClick}>
