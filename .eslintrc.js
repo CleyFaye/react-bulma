@@ -8,15 +8,8 @@ module.exports = {
   ],
   "parserOptions": {
     "ecmaVersion": 2018,
+    "sourceType": "module"
   },
-  "overrides": [
-    {
-      "files": ["**/*.mjs"],
-      "parserOptions": {
-        "sourceType": "module"
-      }
-    }
-  ],
   "rules": {
     "indent": [
       "error",

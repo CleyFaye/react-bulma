@@ -5,6 +5,11 @@ module.exports = grunt => {
   loadGruntTasks(grunt);
 
   grunt.initConfig({
+    clean: {
+      "dist": [
+        "lib",
+      ],
+    },
     babel: {
       options: {
         sourceMap: true,
@@ -12,6 +17,8 @@ module.exports = grunt => {
           [
             "@babel/preset-env",
             {
+              corejs: "2.6.5",
+              useBuiltIns: "usage",
               modules: false,
               targets: "last 2 version, > 1%, not dead",
             },
@@ -22,19 +29,17 @@ module.exports = grunt => {
       dist: {
         files: [{
           expand: true,
-          cwd: "lib",
+          cwd: "src",
           src: [
             "**/*.js",
-            "**/*.mjs",
           ],
-          /*          ext: ".js",*/
-          dest: "dist",
+          dest: "lib",
         }],
       },
     },
   });
   grunt.registerTask("dist",
-    "Build /dist directory",
+    "Build /lib directory",
     [
       "babel:dist",
     ]
