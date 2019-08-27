@@ -1,6 +1,6 @@
 {
   "name": "@cley_faye/react-bulma",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "React components based on Bulma.io",
   "main": "lib",
   "files": [
