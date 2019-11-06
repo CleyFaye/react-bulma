@@ -15,7 +15,7 @@ export default class Navbar extends Component {
     this.prepareState({
       burgerOpen: false,
     });
-    this.selfBind(this.burgerClick);
+    this.burgerClick = this.burgerClick.bind(this);
   }
 
   burgerClick() {

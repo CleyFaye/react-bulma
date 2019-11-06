@@ -45,16 +45,4 @@ export default class Component extends React.Component {
       this.setState(state, () => resolve());
     });
   }
-
-  /** Bind a method on this object
-   *
-   * This is a helper that replace the line
-   * ```
-   * this.methodName = this.methodName.bind(this)
-   * ```
-   * in a less error-prone way.
-   */
-  selfBind(method) {
-    this[method.name] = method.bind(this);
-  }
 }

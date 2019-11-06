@@ -21,7 +21,7 @@ export default class Notification extends Component {
     this.prepareState({
       closed: this.props.initiallyClosed,
     });
-    this.selfBind(this.close);
+    this.close = this.close.bind(this);
   }
 
   /** Close the notification.

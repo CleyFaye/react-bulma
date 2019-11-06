@@ -191,7 +191,7 @@ class View extends Component {
       tabTitles: [],
       tabHidden: [],
     });
-    this.selfBind(this.handleTabClick);
+    this.handleTabClick = this.handleTabClick.bind(this);
   }
 
   handleTabClick(tabId) {
