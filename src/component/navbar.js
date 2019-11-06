@@ -183,12 +183,12 @@ class NavbarItem extends React.Component {
     this.setState(oldState => ({foldOpen: !oldState.foldOpen}));
   }
 
-  handleClick() {
+  handleClick(child) {
     if (this.props.onMenuClick) {
       this.props.onMenuClick();
     }
-    if (this.props.onClick) {
-      this.props.onClick();
+    if (child && child.props && child.props.onClick) {
+      child.props.onClick();
     }
   }
 
@@ -241,7 +241,7 @@ class NavbarItem extends React.Component {
     return React.cloneElement(
       childrenArray[0],
       {
-        onClick: this.handleClick.bind(this),
+        onClick: () => this.handleClick(childrenArray[0]),
         className: childrenArray[0].props.className
           ? (childrenArray[0].props.className + " navbar-item")
           : "navbar-item",
