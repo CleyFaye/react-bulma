@@ -1,3 +1,4 @@
+/*eslint-env browser */
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -74,10 +75,22 @@ export default class Navbar extends Component {
       burgerClass += " is-active";
       menuClass += " is-active";
     }
-    const navbarClass = this.props.transparent
-      ? "navbar is-transparent"
-      : "navbar";
-    return <nav className={navbarClass} role="navigation">
+    const navbarClass = ["navbar"];
+    if (this.props.transparent) {
+      navbarClass.push("is-transparent");
+    }
+    if (this.props.fixed) {
+      navbarClass.push("is-fixed-top");
+      const body = document.getElementsByTag("body");
+      const bodyClassesStr = body.className;
+      const bodyClasses = bodyClassesStr.split(" ");
+      if (!bodyClasses.includes("has-navbar-fixed-top") 
+        && console && console.warn) {
+        console.warn("When using a fixed navbar the body element should have"
+          + " the 'has-navbar-fixed-top' class");
+      }
+    }
+    return <nav className={navbarClass.join(" ")} role="navigation">
       {brandElem
         ? React.cloneElement(
           brandElem,
@@ -97,6 +110,7 @@ Navbar.propTypes = {
   transparent: PropTypes.bool,
   children: PropTypes.node,
   autoClose: PropTypes.bool,
+  fixed: PropTypes.bool,
 };
 
 class Brand extends React.Component {
