@@ -16,10 +16,17 @@ export default class Navbar extends Component {
       burgerOpen: false,
     });
     this.burgerClick = this.burgerClick.bind(this);
+    this.childClicked = this.childClicked.bind(this);
   }
 
   burgerClick() {
-    this.updateState(oldState => ({burgerOpen: !oldState.burgerOpen}));
+    this.setState(oldState => ({burgerOpen: !oldState.burgerOpen}));
+  }
+
+  childClicked() {
+    if (this.props.autoClose) {
+      this.setState({burgerOpen: false});
+    }
   }
 
   render() {
@@ -42,13 +49,23 @@ export default class Navbar extends Component {
         if (leftElem) {
           throw new Error("Only one left element is accepted");
         }
-        leftElem = child;
+        leftElem = React.cloneElement(
+          child,
+          {
+            onMenuClick: this.childClicked,
+          }
+        );
       }
       if (child.type.name.endsWith("Right")) {
         if (rightElem) {
           throw new Error("Only one right element is accepted");
         }
-        rightElem = child;
+        rightElem = React.cloneElement(
+          child,
+          {
+            onMenuClick: this.childClicked,
+          }
+        );
       }
     });
     let burgerClass = "navbar-burger";
@@ -79,6 +96,7 @@ export default class Navbar extends Component {
 Navbar.propTypes = {
   transparent: PropTypes.bool,
   children: PropTypes.node,
+  autoClose: PropTypes.bool,
 };
 
 class Brand extends React.Component {
@@ -104,32 +122,103 @@ Brand.propTypes = {
 Navbar.Brand = Brand;
 
 class Left extends React.Component {
+  renderChilds() {
+    return React.Children.toArray(this.props.children)
+      .map(child => React.cloneElement(
+        child,
+        {
+          onMenuClick: this.props.onMenuClick,
+        }
+      ));
+  }
+
   render() {
     return <div className="navbar-start">
-      {this.props.children}
+      {this.renderChilds()}
     </div>;
   }
 }
 Left.propTypes = {
   children: PropTypes.node,
+  onMenuClick: PropTypes.func,
 };
 Navbar.Left = Left;
 
 class Right extends React.Component {
+  renderChilds() {
+    return React.Children.toArray(this.props.children)
+      .map(child => React.cloneElement(
+        child,
+        {
+          onMenuClick: this.props.onMenuClick,
+        }
+      ));
+  }
+
   render() {
     return <div className="navbar-end">
-      {this.props.children}
+      {this.renderChilds()}
     </div>;
   }
 }
 Right.propTypes = {
   children: PropTypes.node,
+  onMenuClick: PropTypes.func,
 };
 Navbar.Right = Right;
 
 /**
  */
 class NavbarItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      foldOpen: false,
+    };
+    this._foldableRef = React.createRef();
+    this.handleFold = this.handleFold.bind(this);
+  }
+
+  handleFold() {
+    this.setState(oldState => ({foldOpen: !oldState.foldOpen}));
+  }
+
+  handleClick() {
+    if (this.props.onMenuClick) {
+      this.props.onMenuClick();
+    }
+    if (this.props.onClick) {
+      this.props.onClick();
+    }
+  }
+
+  renderChild(child) {
+    return React.cloneElement(
+      child,
+      {
+        onMenuClick: this.props.onMenuClick,
+      }
+    );
+  }
+
+  renderFoldable(childrenArray) {
+    const linkClasses = ["navbar-link"];
+    const elemClasses = ["navbar-dropdown"];
+    if (this.state.foldOpen) {
+      linkClasses.push("is-active");
+    } else {
+      elemClasses.push("is-hidden");
+    }
+    return <div className="navbar-item has-dropdown is-hoverable">
+      <a className={linkClasses.join(" ")} onClick={this.handleFold}>
+        {childrenArray[0]}
+      </a>
+      <div className={elemClasses.join(" ")} ref={this._foldableRef}>
+        {childrenArray.slice(1).map(child => this.renderChild(child))}
+      </div>
+    </div>;
+  }
+
   render() {
     const childrenArray = React.Children.toArray(this.props.children);
     if (childrenArray.length == 0) {
@@ -137,6 +226,9 @@ class NavbarItem extends React.Component {
     }
     const haveDropdown = childrenArray.length > 1;
     if (haveDropdown) {
+      if (this.props.foldable) {
+        return this.renderFoldable(childrenArray);
+      }
       return <div className="navbar-item has-dropdown is-hoverable">
         <a className="navbar-link">
           {childrenArray[0]}
@@ -149,6 +241,7 @@ class NavbarItem extends React.Component {
     return React.cloneElement(
       childrenArray[0],
       {
+        onClick: this.handleClick.bind(this),
         className: childrenArray[0].props.className
           ? (childrenArray[0].props.className + " navbar-item")
           : "navbar-item",
@@ -170,5 +263,7 @@ NavbarItem.propTypes = {
   logoHeight: PropTypes.number,
   label: PropTypes.string,
   onClick: PropTypes.func,
+  onMenuClick: PropTypes.func,
+  foldable: PropTypes.bool,
 };
 Navbar.Item = NavbarItem;
