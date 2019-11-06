@@ -196,7 +196,14 @@ class NavbarItem extends React.Component {
     return React.cloneElement(
       child,
       {
-        onMenuClick: this.props.onMenuClick,
+        onMenuClick: () => {
+          if (this.props.onMenuClick) {
+            this.props.onMenuClick();
+          }
+          if (this.props.autoClose) {
+            this.setState({foldOpen: false});
+          }
+        },
       }
     );
   }
@@ -265,5 +272,6 @@ NavbarItem.propTypes = {
   onClick: PropTypes.func,
   onMenuClick: PropTypes.func,
   foldable: PropTypes.bool,
+  autoClose: PropTypes.bool,
 };
 Navbar.Item = NavbarItem;
