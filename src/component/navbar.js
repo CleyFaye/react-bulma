@@ -81,7 +81,7 @@ export default class Navbar extends Component {
     }
     if (this.props.fixed) {
       navbarClass.push("is-fixed-top");
-      const body = document.getElementsByTag("body");
+      const body = document.getElementsByTagName("body");
       const bodyClassesStr = body.className;
       const bodyClasses = bodyClassesStr.split(" ");
       if (!bodyClasses.includes("has-navbar-fixed-top") 
