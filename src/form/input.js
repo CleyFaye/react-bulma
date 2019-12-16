@@ -50,6 +50,9 @@ export default class Input extends ControlledInput {
       readOnly={this.getReadOnly()}
       disabled={this.props.disabled}
       ref={this.props.inputRef}
+      min={this.props.min}
+      max={this.props.max}
+      step={this.props.step}
       onChange={ev => this.setStateValue(ev.target.value)} />;
   }
 }
@@ -67,5 +70,8 @@ Input.propTypes = {
   disabled: PropTypes.bool,
   autoComplete: PropTypes.string,
   inputRef: PropTypes.object,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
   ...allModifiersPropList,
 };
