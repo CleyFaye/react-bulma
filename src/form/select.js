@@ -71,7 +71,7 @@ Select.propTypes = {
  */
 class Option extends React.Component {
   render() {
-    const isSelected = this.props.activeValues.include(this.props.value);
+    const isSelected = this.props.activeValues.includes(this.props.value);
     const classes = [];
     return <option
       className={classString(classes, this.props.className)}
