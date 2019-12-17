@@ -27,18 +27,13 @@ import {allModifiersPropList} from "../utils/props";
  * Use Select.Option for options
  */
 export default class Select extends ControlledInput {
-  _handleChange(htmlOptions) {
-    const values = Array.from(htmlOptions).map(opt => opt.value);
-    this.setStateValue(values);
-  }
-
-  _renderChildren() {
-    return React.Children.map(this.props.children, child => React.cloneElement(
-      child,
-      {
-        activeValues: this.props.value,
-      }
-    ));
+  _handleChange(elem) {
+    if (this.props.multiple) {
+      const values = Array.from(elem.selectedOptions).map(opt => opt.value);
+      this.setStateValue(values);
+    } else {
+      this.setStateValue(elem.value);
+    }
   }
 
   render() {
@@ -50,8 +45,9 @@ export default class Select extends ControlledInput {
       <select
         multiple={this.props.multiple}
         disabled={this.props.disabled}
-        onChange={ev => this._handleChange(ev.target.selectedOptions)}>
-        {this._renderChildren()}
+        value={this.props.value}
+        onChange={ev => this._handleChange(ev.target)}>
+        {this.props.children}
       </select>
     </div>;
   }
@@ -60,6 +56,7 @@ Select.propTypes = {
   className: classNamePropType,
   multiple: PropTypes.bool,
   disabled: PropTypes.bool,
+  children: PropTypes.node,
   ...allModifiersPropList,
 };
 
@@ -71,12 +68,11 @@ Select.propTypes = {
  */
 class Option extends React.Component {
   render() {
-    const isSelected = this.props.activeValues.includes(this.props.value);
     const classes = [];
     return <option
       className={classString(classes, this.props.className)}
       value={this.props.value}
-      selected={isSelected}>
+    >
       {this.props.children}
     </option>;
   }
@@ -84,7 +80,6 @@ class Option extends React.Component {
 Option.propTypes = {
   className: classNamePropType,
   value: PropTypes.string,
-  activeValues: PropTypes.arrayOf(PropTypes.string),
   children: PropTypes.node,
 };
 Select.Option = Option;
