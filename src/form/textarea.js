@@ -33,14 +33,14 @@ export default class Textarea extends ControlledInput {
       onChange={ev => this.setStateValue(ev.target.value)}
       onKeyUp={ev => this.setStateValue(ev.target.value)}
       readOnly={this.getReadOnly()}
-      className={classString(classes, this.props.className)}>
-      {this.props.value}
-    </textarea>;
+      value={this.props.value}
+      className={classString(classes, this.props.className)} />;
   }
 }
 Textarea.propTypes = {
   className: classNamePropType,
   rows: PropTypes.number,
   placeholder: PropTypes.string,
+  value: PropTypes.string,
   ...allModifiersPropList,
 };
