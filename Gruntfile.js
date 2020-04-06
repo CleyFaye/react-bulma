@@ -17,7 +17,7 @@ module.exports = grunt => {
           [
             "@babel/preset-env",
             {
-              corejs: "2.6.5",
+              corejs: 3,
               useBuiltIns: "usage",
               modules: false,
               targets: "last 2 version, > 1%, not dead",
