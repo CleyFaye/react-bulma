@@ -250,8 +250,12 @@ class NavbarItem extends React.Component {
       if (this.props.foldable) {
         return this.renderFoldable(childrenArray);
       }
+      const classes = ["navbar-link"];
+      if (this.props.arrowless) {
+        classes.push("is-arrowless");
+      }
       return <div className="navbar-item has-dropdown is-hoverable">
-        <a className="navbar-link">
+        <a className={classes.join(" ")}>
           {childrenArray[0]}
         </a>
         <div className="navbar-dropdown">
@@ -278,6 +282,7 @@ NavbarItem.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  arrowless: PropTypes.bool,
   url: PropTypes.string,
   logoURL: PropTypes.string,
   logoWidth: PropTypes.number,
