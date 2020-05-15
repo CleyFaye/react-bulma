@@ -40,13 +40,13 @@ export default class Navbar extends Component {
     let leftElem = null;
     let rightElem = null;
     children.forEach(child => {
-      if (child.type.name.endsWith("Brand")) {
+      if (child.type === Brand) {
         if (brandElem) {
           throw new Error("Only one brand element is accepted");
         }
         brandElem = child;
       }
-      if (child.type.name.endsWith("Left")) {
+      if (child.type === Left) {
         if (leftElem) {
           throw new Error("Only one left element is accepted");
         }
@@ -57,7 +57,7 @@ export default class Navbar extends Component {
           }
         );
       }
-      if (child.type.name.endsWith("Right")) {
+      if (child.type === Right) {
         if (rightElem) {
           throw new Error("Only one right element is accepted");
         }
@@ -106,6 +106,7 @@ export default class Navbar extends Component {
     </nav>;
   }
 }
+Navbar.displayName = "Navbar";
 Navbar.propTypes = {
   transparent: PropTypes.bool,
   children: PropTypes.node,
@@ -128,6 +129,7 @@ class Brand extends React.Component {
     </div>;
   }
 }
+Brand.displayName = "Brand";
 Brand.propTypes = {
   children: PropTypes.node,
   onClick: PropTypes.func,
@@ -152,6 +154,7 @@ class Left extends React.Component {
     </div>;
   }
 }
+Left.displayName = "Left";
 Left.propTypes = {
   children: PropTypes.node,
   onMenuClick: PropTypes.func,
@@ -175,6 +178,7 @@ class Right extends React.Component {
     </div>;
   }
 }
+Right.displayName = "Right";
 Right.propTypes = {
   children: PropTypes.node,
   onMenuClick: PropTypes.func,
@@ -273,6 +277,7 @@ class NavbarItem extends React.Component {
       });
   }
 }
+NavbarItem.displayName = "NavbarItem";
 NavbarItem.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
