@@ -28,6 +28,7 @@ export default class Title extends React.Component {
     }
     bringAll(classes, this.props);
     const TagName = `h${titleSize}`;
+    classes.push(`is-${titleSize}`);
     return <TagName className={classString(classes, this.props.className)}>
       {this.props.children}
     </TagName>;
