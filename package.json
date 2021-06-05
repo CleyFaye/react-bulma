@@ -30,6 +30,7 @@
     "eslint-plugin-react": "^7.20.0",
     "grunt": "^1.1.0",
     "grunt-babel": "^8.0.0",
+    "grunt-banner": "^0.6.0",
     "grunt-contrib-clean": "^2.0.0",
     "load-grunt-tasks": "^5.1.0"
   },
