@@ -1,4 +1,3 @@
-/*eslint-env commonjs */
 const loadGruntTasks = require("load-grunt-tasks");
 
 module.exports = grunt => {
@@ -6,7 +5,7 @@ module.exports = grunt => {
 
   grunt.initConfig({
     clean: {
-      "dist": [
+      build: [
         "lib",
       ],
     },
@@ -26,7 +25,7 @@ module.exports = grunt => {
           "@babel/preset-react",
         ],
       },
-      dist: {
+      build: {
         files: [{
           expand: true,
           cwd: "src",
@@ -38,11 +37,15 @@ module.exports = grunt => {
       },
     },
   });
-  grunt.registerTask("dist",
-    "Build /lib directory",
+  grunt.registerTask(
+    "build",
+    "Build library",
     [
-      "babel:dist",
+      "babel:build",
     ]
   );
-  grunt.registerTask("default", "dist");
+  grunt.registerTask(
+    "default",
+    "dist",
+  );
 };

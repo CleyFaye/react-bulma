@@ -2,15 +2,11 @@
   "name": "@cley_faye/react-bulma",
   "version": "0.5.13",
   "description": "React components based on Bulma.io",
-  "main": "lib",
   "files": [
-    "lib"
+    "lib/**/*.js"
   ],
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
-    "prepublish": "grunt"
+    "prepack": "npm exec grunt clean build"
   },
   "repository": {
     "type": "git",
@@ -26,12 +22,6 @@
     "url": "https://github.com/CleyFaye/react-bulma/issues"
   },
   "homepage": "https://github.com/CleyFaye/react-bulma#readme",
-  "dependencies": {
-    "core-js": "^3.6.5",
-    "esm": "^3.2.25",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1"
-  },
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
@@ -42,5 +32,21 @@
     "grunt-babel": "^8.0.0",
     "grunt-contrib-clean": "^2.0.0",
     "load-grunt-tasks": "^5.1.0"
+  },
+  "peerDependencies": {
+    "core-js": "3.x",
+    "prop-types": "15.x",
+    "react": "17.x"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "prop-types": {
+      "optional": false
+    },
+    "core-js": {
+      "optional": false
+    }
   }
 }
