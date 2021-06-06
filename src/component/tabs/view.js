@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Component from "../../utils/component.js";
 import {classNamePropType} from "../../utils/props.js";
 import {classString} from "../../utils/class.js";
 import Tab from "./tab.js";
@@ -26,20 +25,20 @@ import Tabs from "./tabs.js";
  * </View>
  * @endcode
  */
-export default class View extends Component {
+export default class View extends React.Component {
   constructor(props) {
     super(props);
-    this.prepareState({
+    this.state = {
       activeTab: this.props.initialTab,
       tabTitles: [],
       tabHidden: [],
-    });
+    };
     this.handleTabClick = this.handleTabClick.bind(this);
   }
 
   handleTabClick(tabId) {
     if (this.state.activeTab !== tabId) {
-      this.updateState({activeTab: tabId});
+      this.setState({activeTab: tabId});
     }
   }
 

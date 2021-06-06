@@ -5,7 +5,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Component from "../../utils/component.js";
 import Brand from "./brand.js";
 import Left from "./left.js";
 import Right from "./right.js";
@@ -16,7 +15,7 @@ import Right from "./right.js";
  *
  * All elements are expected to be Navbar.Brand, Navbar.Left or Navbar.Right.
  */
-export default class Navbar extends Component {
+export default class Navbar extends React.Component {
   static setFixedOnBody(useFixed) {
     const body = document.getElementsByTagName("body")[0];
     if (useFixed) {
@@ -28,10 +27,10 @@ export default class Navbar extends Component {
 
   constructor(props) {
     super(props);
-    this.prepareState({
+    this.state = {
       burgerOpen: false,
       addedFixedToBody: false,
-    });
+    };
     this.burgerClick = this.burgerClick.bind(this);
     this.childClicked = this.childClicked.bind(this);
   }

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Component from "../../utils/component.js";
 import {classNamePropType} from "../../utils/props.js";
 import {classString} from "../../utils/class.js";
 
@@ -12,7 +11,7 @@ import {classString} from "../../utils/class.js";
  * - hidden: control if the tab should be visible in a tab list
  * - title: name of the tab
  */
-export default class Panel extends Component {
+export default class Panel extends React.Component {
   constructor(props) {
     super(props);
     this._updateTabViewer();

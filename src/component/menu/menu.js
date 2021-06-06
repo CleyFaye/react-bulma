@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Component from "../../utils/component.js";
 import {classNamePropType} from "../../utils/props.js";
 import {classString} from "../../utils/class.js";
 
@@ -31,20 +30,20 @@ import {classString} from "../../utils/class.js";
  * If a toggle is present, it will switch the "is-visible" property on the top
  * menu element.
  */
-export default class Menu extends Component {
+export default class Menu extends React.Component {
   constructor(props) {
     super(props);
-    this.prepareState({visible: !props.initiallyHidden});
+    this.state = {visible: !props.initiallyHidden};
     this._onToggleMenu = this._onToggleMenu.bind(this);
     this._onCloseMenu = this._onCloseMenu.bind(this);
   }
 
   _onToggleMenu() {
-    this.updateState(oldState => ({visible: !oldState.visible}));
+    this.setState(oldState => ({visible: !oldState.visible}));
   }
 
   _onCloseMenu() {
-    this.updateState({visible: false});
+    this.setState({visible: false});
   }
 
   _renderChilds(children) {

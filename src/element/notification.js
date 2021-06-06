@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Component from "../utils/component.js";
 import {classString} from "../utils/class.js";
 import {bringAll} from "../utils/modifier.js";
 import {
@@ -17,10 +16,10 @@ import {
  *   to prevent the notification from closing.
  * - All Bulma modifiers
  */
-export default class Notification extends Component {
+export default class Notification extends React.Component {
   constructor(props) {
     super(props);
-    this.prepareState({closed: this.props.initiallyClosed});
+    this.state = {closed: this.props.initiallyClosed};
     this.handleClose = this.handleClose.bind(this);
   }
 
@@ -34,7 +33,7 @@ export default class Notification extends Component {
         return;
       }
     }
-    this.updateState({closed: true});
+    this.setState({closed: true});
   }
 
   /** Open a notification.
@@ -42,7 +41,7 @@ export default class Notification extends Component {
    * Closed notification is invisible and does not occupy space.
    */
   open() {
-    this.updateState({closed: false});
+    this.setState({closed: false});
   }
 
   _renderCloseButton() {
