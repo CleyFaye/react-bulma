@@ -6,7 +6,8 @@
     "lib/**/*.js"
   ],
   "scripts": {
-    "prepack": "npm exec grunt clean build"
+    "prepack": "npm run grunt -- clean build",
+    "grunt": "npm exec grunt -- --gruntfile Gruntfile.cjs"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   ],
   "author": "Gabriel Paul \"Cley Faye\" Risterucci",
   "license": "MIT",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/CleyFaye/react-bulma/issues"
   },
