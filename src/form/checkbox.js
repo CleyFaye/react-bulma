@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ControlledInput from "./controlledinput.js";
+import controlledInputMixin from "../utils/controlledinput.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   classNamePropType,
@@ -23,14 +23,13 @@ import clsx from "clsx";
  *
  * See form.Input for details on stateObj
  */
-export default class Checkbox extends ControlledInput {
+export default class Checkbox extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(ev) {
-    this.setStateValue(ev.target.checked);
+    controlledInputMixin(
+      this,
+      ev => ev.target.checked,
+    );
   }
 
   render() {
@@ -38,12 +37,12 @@ export default class Checkbox extends ControlledInput {
     bringAll(classes, this.props);
     return <label
       className={clsx(classes, this.props.className)}
-      disabled={this.props.disabled}
+      disabled={this.props.disabled || this.isReadOnly()}
     >
       <input
         type="checkbox"
         checked={this.props.value}
-        disabled={this.props.disabled}
+        disabled={this.props.disabled || this.isReadOnly()}
         onChange={this.handleChange}
       />
       {this.props.children}

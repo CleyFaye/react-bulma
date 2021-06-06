@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ControlledInput from "./controlledinput.js";
+import controlledInputMixin from "../utils/controlledinput.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   classNamePropType,
@@ -25,14 +25,13 @@ import clsx from "clsx";
  *
  * See form.Input for stateObj behavior.
  */
-export default class Textarea extends ControlledInput {
+export default class Textarea extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(ev) {
-    this.setStateValue(ev.target.value);
+    controlledInputMixin(
+      this,
+      ev => ev.target.value,
+    );
   }
 
   render() {
@@ -43,7 +42,7 @@ export default class Textarea extends ControlledInput {
       placeholder={this.props.placeholder}
       onChange={this.handleChange}
       onKeyUp={this.handleChange}
-      readOnly={this.getReadOnly()}
+      readOnly={this.isReadOnly()}
       value={this.props.value}
       className={clsx(classes, this.props.className)}
     />;

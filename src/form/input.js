@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ControlledInput from "./controlledinput.js";
+import controlledInputMixin from "../utils/controlledinput.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   classNamePropType,
@@ -31,14 +31,13 @@ import clsx from "clsx";
  * If stateObj is provided, it will get updates to the state as needed
  * automatically.
  */
-export default class Input extends ControlledInput {
+export default class Input extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(ev) {
-    this.setStateValue(ev.target.value);
+    controlledInputMixin(
+      this,
+      ev => ev.target.value,
+    );
   }
 
   render() {
@@ -54,7 +53,7 @@ export default class Input extends ControlledInput {
       placeholder={this.props.placeholder}
       autoComplete={this.props.autoComplete}
       value={this.props.value}
-      readOnly={this.getReadOnly()}
+      readOnly={this.isReadOnly()}
       disabled={this.props.disabled}
       ref={this.props.inputRef}
       min={this.props.min}
