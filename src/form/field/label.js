@@ -17,8 +17,8 @@ import clsx from "clsx";
 export default class Label extends React.Component {
   _renderChildren() {
     return renderChildrenWithProps(
-      this.props,
-      {size: true},
+      this.props.children,
+      {size: this.props.size},
     );
   }
 
@@ -32,7 +32,6 @@ export default class Label extends React.Component {
 }
 Label.propTypes = {
   className: classNamePropType,
-  // eslint-disable-next-line react/no-unused-prop-types
   children: PropTypes.node.isRequired,
   ...allModifiersPropList,
 };

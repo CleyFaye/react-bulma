@@ -17,8 +17,8 @@ import clsx from "clsx";
 export default class Label extends React.Component {
   renderChildren() {
     return renderChildrenWithProps(
-      this.props,
-      {size: true},
+      this.props.children,
+      {size: this.props.size},
     );
   }
 

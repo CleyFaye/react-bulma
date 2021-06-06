@@ -67,8 +67,8 @@ export default class Control extends React.Component {
 
   _renderChildren() {
     return renderChildrenWithProps(
-      this.props,
-      {size: true},
+      this.props.children,
+      {size: this.props.size},
     );
   }
 

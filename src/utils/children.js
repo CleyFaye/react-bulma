@@ -18,17 +18,14 @@ import React from "react";
  * @returns {Node}
  * Something that can be put as a return value for render().
  */
-export const renderChildrenWithProps = (props, propList, extraProps) => {
-  // TODO replace propList with a simple record, and props with props.children directly.
-  // This would make it cleaner on the caller, and apease linting.
-  const replacement = {...(extraProps ? extraProps : {})};
-  Object.keys(propList).forEach(replacementPropName => {
-    let sourcePropName = propList[replacementPropName];
-    if (sourcePropName === true) {
-      sourcePropName = replacementPropName;
-    }
-    if (props[sourcePropName]) {
-      replacement[replacementPropName] = props[sourcePropName];
+export const renderChildrenWithProps = (
+  children,
+  props,
+) => {
+  const replacement = {};
+  Object.keys(props).forEach(key => {
+    if (props[key] !== undefined) {
+      replacement[key] = props[key];
     }
   });
   if (Object.keys(replacement).length > 0) {
