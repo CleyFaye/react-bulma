@@ -17,11 +17,58 @@ import Right from "./right.js";
  * All elements are expected to be Navbar.Brand, Navbar.Left or Navbar.Right.
  */
 export default class Navbar extends Component {
+  static setFixedOnBody(useFixed) {
+    const body = document.getElementsByTagName("body")[0];
+    if (useFixed) {
+      body.classList.add("has-navbar-fixed-top");
+    } else {
+      body.classList.remove("has-navbar-fixed-top");
+    }
+  }
+
   constructor(props) {
     super(props);
-    this.prepareState({burgerOpen: false});
+    this.prepareState({
+      burgerOpen: false,
+      addedFixedToBody: false,
+    });
     this.burgerClick = this.burgerClick.bind(this);
     this.childClicked = this.childClicked.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.fixed) {
+      this.ensureBodyHaveFixed();
+    }
+  }
+
+  componentDidUpdate(oldProps, oldState) {
+    if (this.props.fixed !== oldProps.fixed) {
+      if (this.props.fixed) {
+        this.ensureBodyHaveFixed();
+      } else if (this.state.addedFixedToBody) {
+          // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({addedFixedToBody: false});
+      }
+    }
+    if (this.state.addedFixedToBody !== oldState.addedFixedToBody) {
+      Navbar.setFixedOnBody(this.state.addedFixedToBody);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.state.addedFixedToBody) {
+      Navbar.setFixedOnBody(false);
+    }
+  }
+
+  ensureBodyHaveFixed() {
+    const body = document.getElementsByTagName("body")[0];
+    const bodyClassesStr = body.className;
+    const bodyClasses = bodyClassesStr.split(" ");
+    if (!bodyClasses.includes("has-navbar-fixed-top")) {
+      this.setState({addedFixedToBody: true});
+    }
   }
 
   burgerClick() {
@@ -96,17 +143,6 @@ export default class Navbar extends Component {
     }
     if (this.props.fixed) {
       navbarClass.push("is-fixed-top");
-      const body = document.getElementsByTagName("body")[0];
-      const bodyClassesStr = body.className;
-      const bodyClasses = bodyClassesStr.split(" ");
-      if (!bodyClasses.includes("has-navbar-fixed-top")
-        // TODO automatically add it and remove it
-        // eslint-disable-next-line no-console
-        && console && console.warn) {
-        // eslint-disable-next-line no-console
-        console.warn("When using a fixed navbar the body element should have"
-          + " the 'has-navbar-fixed-top' class");
-      }
     }
     return {
       burgerClass,
