@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import controlledInputMixin from "../utils/controlledinput.js";
+import controlledInputMixin, {withCtx} from "../utils/controlledinput.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   classNamePropType,
@@ -23,7 +23,7 @@ import clsx from "clsx";
  *
  * See form.Input for details on stateObj
  */
-export default class Checkbox extends React.Component {
+class Checkbox extends React.Component {
   constructor(props) {
     super(props);
     controlledInputMixin(
@@ -59,3 +59,5 @@ Checkbox.defaultProps = {
   disabled: false,
 };
 Checkbox.displayName = "Checkbox";
+
+export default withCtx(Checkbox);

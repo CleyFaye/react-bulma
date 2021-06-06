@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import controlledInputMixin from "../../utils/controlledinput.js";
+import controlledInputMixin, {withCtx} from "../../utils/controlledinput.js";
 import {bringAll} from "../../utils/modifier.js";
 import {
   classNamePropType,
@@ -28,7 +28,7 @@ import clsx from "clsx";
  * @note
  * Use Select.Option for options
  */
-export default class Select extends React.Component {
+class Select extends React.Component {
   constructor(props) {
     super(props);
     controlledInputMixin(
@@ -75,3 +75,5 @@ Select.defaultProps = {
   disabled: false,
 };
 Select.displayName = "Select";
+
+export default withCtx(Select);

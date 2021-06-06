@@ -1,3 +1,23 @@
+import React from "react";
+import PropTypes from "prop-types";
+import stateContext from "@cley_faye/react-utils/lib/context/state.js";
+
+const ControllerCtx = stateContext(
+  "Controller",
+  {controller: null},
+);
+
+export class Controller extends React.Component {
+  constructor(props) {
+    super(props);
+    ControllerCtx.init(this, {controller: props.controller});
+  }
+}
+Controller.propTypes = {controller: PropTypes.object.isRequired};
+Controller.displayName = "Controller";
+
+export const withCtx = ControllerCtx.withCtx;
+
 /**
  * Add a `handleChange()` method to instance, updating the controller state appropriately.
  *

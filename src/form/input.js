@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import controlledInputMixin from "../utils/controlledinput.js";
+import controlledInputMixin, {withCtx} from "../utils/controlledinput.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   classNamePropType,
@@ -31,7 +31,7 @@ import clsx from "clsx";
  * If stateObj is provided, it will get updates to the state as needed
  * automatically.
  */
-export default class Input extends React.Component {
+class Input extends React.Component {
   constructor(props) {
     super(props);
     controlledInputMixin(
@@ -95,3 +95,5 @@ Input.defaultProps = {
   step: undefined,
 };
 Input.displayName = "Input";
+
+export default withCtx(Input);

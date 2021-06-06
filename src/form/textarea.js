@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import controlledInputMixin from "../utils/controlledinput.js";
+import controlledInputMixin, {withCtx} from "../utils/controlledinput.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   classNamePropType,
@@ -25,7 +25,7 @@ import clsx from "clsx";
  *
  * See form.Input for stateObj behavior.
  */
-export default class Textarea extends React.Component {
+class Textarea extends React.Component {
   constructor(props) {
     super(props);
     controlledInputMixin(
@@ -62,3 +62,5 @@ Textarea.defaultProps = {
   value: "",
 };
 Textarea.displayName = "Textarea";
+
+export default withCtx(Textarea);

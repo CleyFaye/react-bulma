@@ -28,3 +28,16 @@ The files doesn't require extra conversion; no JSX is present in the built files
 Bugs and inconsistencies
 ------------------------
 Probably a lot. This is a work in progress.
+
+Form input fields
+-----------------
+Input (checkbox, input, textarea and select) are designed to "cooperate" with a controller
+component that holds all their value in its own state.
+This can be achieved in two ways:
+
+- provide a `controller` prop to each input, along with a `name` property that matches the state
+  property they refer to
+- enclose all inputs with `<Controller controller={this}>` in the component that holds all the
+  states.
+
+Alternatively, it is possible to simply use `onChange` on inputs to do things by hand.

@@ -55,6 +55,7 @@
     }
   },
   "dependencies": {
+    "@cley_faye/react-utils": "^1.2.0",
     "clsx": "^1.1.1"
   }
 }
