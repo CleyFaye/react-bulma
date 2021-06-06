@@ -103,6 +103,7 @@ export default class Navbar extends Component {
         // TODO automatically add it and remove it
         // eslint-disable-next-line no-console
         && console && console.warn) {
+        // eslint-disable-next-line no-console
         console.warn("When using a fixed navbar the body element should have"
           + " the 'has-navbar-fixed-top' class");
       }
