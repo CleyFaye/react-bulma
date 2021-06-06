@@ -5,7 +5,7 @@ import {
   classNamePropType,
   allModifiersPropList,
 } from "../../utils/props.js";
-import {classString} from "../../utils/class.js";
+import {addClassesFromOptions, classString} from "../../utils/class.js";
 import {bringAll} from "../../utils/modifier.js";
 
 /**
@@ -18,10 +18,11 @@ import {bringAll} from "../../utils/modifier.js";
 export default class Tab extends React.Component {
   render() {
     const classes = [];
-    // TODO use utils for that too?
-    if (this.props.active) {
-      classes.push("is-active");
-    }
+    addClassesFromOptions(
+      classes,
+      this.props,
+      {"active": "is-active"},
+    );
     bringAll(classes, this.props);
     return <li
       className={classString(classes, this.props.className)}
@@ -35,6 +36,7 @@ export default class Tab extends React.Component {
 }
 Tab.propTypes = {
   className: classNamePropType,
+  // eslint-disable-next-line react/no-unused-prop-types
   active: PropTypes.bool,
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
