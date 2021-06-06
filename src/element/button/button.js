@@ -6,11 +6,9 @@ import {
   allModifiersPropList,
   classNamePropType,
 } from "../../utils/props.js";
-import {
-  classString,
-  addClassesFromOptions,
-} from "../../utils/class.js";
+import {addClassesFromOptions} from "../../utils/class.js";
 import {bringAll} from "../../utils/modifier.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -42,7 +40,7 @@ export default class Button extends React.Component {
     );
     return <button
       type="button"
-      className={classString(classes, this.props.className)}
+      className={clsx(classes, this.props.className)}
       disabled={this.props.disabled}
       onClick={this.props.onClick}
     >

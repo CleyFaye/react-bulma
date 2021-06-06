@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {classNamePropType} from "../../utils/props.js";
-import {classString} from "../../utils/class.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -20,7 +20,7 @@ export default class List extends React.Component {
     } else if (this.props.align === "right") {
       classes.push("is-right");
     }
-    return <div className={classString(classes, this.props.className)}>
+    return <div className={clsx(classes, this.props.className)}>
       {this.props.children}
     </div>;
   }

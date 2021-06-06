@@ -2,13 +2,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {
-  classString,
-  addClassesFromOptions,
-} from "../../utils/class.js";
+import {addClassesFromOptions} from "../../utils/class.js";
 import {boolList} from "../../utils/const.js";
 import {boolProp} from "../../utils/transform.js";
 import {classNamePropType} from "../../utils/props.js";
+import clsx from "clsx";
 
 /** List of possible tile width */
 const widthList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -46,7 +44,7 @@ export default class TileBase extends React.Component {
     if (this._isChild) {
       classes.push("is-child");
     }
-    return <div className={classString(classes, this.props.className)}>
+    return <div className={clsx(classes, this.props.className)}>
       {this.props.children}
     </div>;
   }

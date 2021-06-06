@@ -22,41 +22,6 @@ export const addBreakpoint = (classes, breakpoint) => {
   return classes;
 };
 
-// TODO replace with clsx()
-/** Return a class string from an array of classes
- *
- * @param {Array.<{string}>} classes
- * List of classes to use
- *
- * @param {string|Array.<{string}>} extraClassName
- * Extra classes to append to the list of classes.
- * Usually used to pull custom classes with the className prop.
- * Can be either a string or an array of strings.
- *
- * @returns {string}
- */
-export const classString = (classesIn, extraClassNameIn) => {
-  let classes = classesIn
-    ? classesIn
-    : [];
-  if (typeof classes === "string") {
-    classes = [classes];
-  }
-  let extraClassName;
-  if (extraClassNameIn) {
-    if (typeof extraClassNameIn == "string") {
-      extraClassName = extraClassNameIn.split(" ");
-    }
-  } else {
-    extraClassName = [];
-  }
-  const classesSet = new Set([...classes, ...extraClassName]);
-  return classesSet.size === 0
-    ? undefined
-    : Array.from(classesSet.values()).filter(cls => cls.length)
-      .join(" ");
-};
-
 /** Add a class in a list of classes according to a property value
  *
  * @param {Array.<{string}>} classes

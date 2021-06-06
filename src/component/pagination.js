@@ -7,10 +7,8 @@ import {
   modifiersPropsList,
 } from "../utils/props.js";
 import {bringAll} from "../utils/modifier.js";
-import {
-  addClassesFromOptions,
-  classString,
-} from "../utils/class.js";
+import {addClassesFromOptions} from "../utils/class.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -158,7 +156,7 @@ export default class Pagination extends React.Component {
     bringAll(navClasses, this.props, {size: true});
 
     return <nav
-      className={classString(navClasses, this.props.className)}
+      className={clsx(navClasses, this.props.className)}
       role="navigation"
     >
       {buttonSection}

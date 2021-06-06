@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../utils/class.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   classNamePropType,
   allModifiersPropList,
 } from "../utils/props.js";
 import {renderChildrenWithProps} from "../utils/children.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -25,7 +25,7 @@ export default class Label extends React.Component {
   render() {
     const classes = ["label"];
     bringAll(classes, this.props);
-    return <label className={classString(classes, this.props.className)}>
+    return <label className={clsx(classes, this.props.className)}>
       {this.props.children}
     </label>;
   }

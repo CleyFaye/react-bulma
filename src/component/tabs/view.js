@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {classNamePropType} from "../../utils/props.js";
-import {classString} from "../../utils/class.js";
 import Tab from "./tab.js";
 import Tabs from "./tabs.js";
+import clsx from "clsx";
 
 /** Render a tabular view.
  *
@@ -55,7 +55,7 @@ export default class View extends React.Component {
       </Tab>,
     );
     const classes = ["tabs-view"];
-    return <div className={classString(classes, this.props.className)}>
+    return <div className={clsx(classes, this.props.className)}>
       <Tabs
         activeId={this.state.activeTab}
         tabViewRef={this}

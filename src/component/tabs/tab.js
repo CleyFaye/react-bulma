@@ -5,8 +5,9 @@ import {
   classNamePropType,
   allModifiersPropList,
 } from "../../utils/props.js";
-import {addClassesFromOptions, classString} from "../../utils/class.js";
+import {addClassesFromOptions} from "../../utils/class.js";
 import {bringAll} from "../../utils/modifier.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -25,7 +26,7 @@ export default class Tab extends React.Component {
     );
     bringAll(classes, this.props);
     return <li
-      className={classString(classes, this.props.className)}
+      className={clsx(classes, this.props.className)}
       onClick={this.props.onClick}
     >
       <a>

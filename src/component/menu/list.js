@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {classNamePropType} from "../../utils/props.js";
-import {classString} from "../../utils/class.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -30,7 +30,7 @@ export default class List extends React.Component {
     if (!this.props.submenu) {
       classes.push("menu-list");
     }
-    return <ul className={classString(classes, this.props.className)}>
+    return <ul className={clsx(classes, this.props.className)}>
       {this._renderChilds(this.props.children)}
     </ul>;
   }

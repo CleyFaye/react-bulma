@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../../utils/class.js";
 import {classNamePropType} from "../../utils/props.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -11,7 +11,7 @@ import {classNamePropType} from "../../utils/props.js";
 class Right extends React.Component {
   render() {
     const classes = ["level-right"];
-    return <div className={classString(classes, this.props.className)}>
+    return <div className={clsx(classes, this.props.className)}>
       {this.props.children}
     </div>;
   }

@@ -6,7 +6,7 @@ import {
   classNameProptype,
   allModifiersPropList,
 } from "../utils/props.js";
-import {classString} from "../utils/class.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -17,7 +17,7 @@ export default class Footer extends React.Component {
   render() {
     const classes = ["footer"];
     bringAll(classes, this.props);
-    return <footer className={classString(classes, this.props.className)}>
+    return <footer className={clsx(classes, this.props.className)}>
       {this.props.children}
     </footer>;
   }

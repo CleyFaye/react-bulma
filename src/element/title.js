@@ -2,12 +2,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../utils/class.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   allModifiersPropList,
   classNamePropType,
 } from "../utils/props.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -30,7 +30,7 @@ export default class Title extends React.Component {
     bringAll(classes, this.props);
     const TagName = `h${titleSize}`;
     classes.push(`is-${titleSize}`);
-    return <TagName className={classString(classes, this.props.className)}>
+    return <TagName className={clsx(classes, this.props.className)}>
       {this.props.children}
     </TagName>;
   }

@@ -2,16 +2,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {
-  classString,
-  addClassesWithViewportSuffix,
-} from "../utils/class.js";
+import {addClassesWithViewportSuffix} from "../utils/class.js";
 import {
   classNamePropType,
   viewportPrefixablePropType,
   allModifiersPropList,
 } from "../utils/props.js";
 import {bringAll} from "../utils/modifier.js";
+import clsx from "clsx";
 
 /** Acceptable value for column size */
 const fractionSizeList = {
@@ -101,7 +99,7 @@ export default class Column extends React.Component {
       () => "is-narrow",
     );
     return <div
-      className={classString(classes, this.props.className)}
+      className={clsx(classes, this.props.className)}
     >
       {this.props.children}
     </div>;

@@ -1,13 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {
-  classString,
-  addClassesFromOptions,
-} from "../utils/class.js";
+import {addClassesFromOptions} from "../utils/class.js";
 import {boolList} from "../utils/const.js";
 import {boolProp} from "../utils/transform.js";
 import {classNamePropType} from "../utils/props.js";
+import clsx from "clsx";
 
 /* eslint-disable no-magic-numbers */
 /** Acceptable value for gap size */
@@ -49,7 +47,7 @@ export default class Columns extends React.Component {
       },
     );
     return <div
-      className={classString(classes, this.props.className)}
+      className={clsx(classes, this.props.className)}
     >
       {this.props.children}
     </div>;

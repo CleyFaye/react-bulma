@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../../utils/class.js";
 import {classNamePropType} from "../../utils/props.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -14,7 +14,7 @@ export default class Option extends React.Component {
   render() {
     const classes = [];
     return <option
-      className={classString(classes, this.props.className)}
+      className={clsx(classes, this.props.className)}
       value={this.props.value}
     >
       {this.props.children}

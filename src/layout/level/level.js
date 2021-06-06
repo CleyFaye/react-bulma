@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../../utils/class.js";
 import {classNamePropType} from "../../utils/props.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -14,7 +14,7 @@ export default class Level extends React.Component {
     if (this.props.alwaysHorizontal) {
       classes.push("is-mobile");
     }
-    return <nav className={classString(classes, this.props.className)}>
+    return <nav className={clsx(classes, this.props.className)}>
       {this.props.children}
     </nav>;
   }

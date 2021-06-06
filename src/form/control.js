@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../utils/class.js";
 import {
   bringAll,
   bringModifiers,
@@ -11,6 +10,7 @@ import {
   allModifiersPropList,
 } from "../utils/props.js";
 import {renderChildrenWithProps} from "../utils/children.js";
+import clsx from "clsx";
 
 /**
  * For holding input, select, button.
@@ -40,7 +40,7 @@ export default class Control extends React.Component {
     const classes = ["icon"];
     bringModifiers(classes, this.props, {size: "iconSize"});
     classes.push(`is-${position}`);
-    return <div key={position} className={classString(classes)}>
+    return <div key={position} className={clsx(classes)}>
       {iconProp}
     </div>;
   }
@@ -82,7 +82,7 @@ export default class Control extends React.Component {
       classes.push("is-loading");
     }
     const icons = this._prepareIcons(classes);
-    return <div className={classString(classes, this.props.className)}>
+    return <div className={clsx(classes, this.props.className)}>
       {this.props.children}
       {icons}
     </div>;

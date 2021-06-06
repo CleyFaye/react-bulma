@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../../utils/class.js";
 import {bringAll} from "../../utils/modifier.js";
 import {
   classNamePropType,
@@ -9,6 +8,7 @@ import {
 } from "../../utils/props.js";
 import {renderChildrenWithProps} from "../../utils/children.js";
 import Field from "./field.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -26,7 +26,7 @@ export default class Body extends React.Component {
   render() {
     const classes = ["field-body"];
     bringAll(classes, this.props);
-    return <div className={classString(classes, this.props.className)}>
+    return <div className={clsx(classes, this.props.className)}>
       <Field>
         {this._renderChildren()}
       </Field>

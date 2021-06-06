@@ -1,16 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {
-  classString,
-  addBreakpoint,
-} from "../utils/class.js";
+import {addBreakpoint} from "../utils/class.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   breakpointPropType,
   classNamePropType,
   allModifiersPropList,
 } from "../utils/props.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -28,7 +26,7 @@ export default class Container extends React.Component {
     if (this.props.fluid) {
       classes.push("is-fluid");
     }
-    return <div className={classString(classes, this.props.className)}>
+    return <div className={clsx(classes, this.props.className)}>
       {this.props.children}
     </div>;
   }

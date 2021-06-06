@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {classNamePropType} from "../../utils/props.js";
-import {classString} from "../../utils/class.js";
 import List from "./list.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -18,7 +18,7 @@ export default class Submenu extends React.Component {
       classes.push("is-active");
     }
     return <>
-      <a className={classString(classes, this.props.className)}>{this.props.title}</a>
+      <a className={clsx(classes, this.props.className)}>{this.props.title}</a>
       <List submenu>{this.props.children}</List>
     </>;
   }

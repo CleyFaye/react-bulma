@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../utils/class.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   allModifiersPropList,
   classNamePropType,
 } from "../utils/props.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -41,9 +41,9 @@ export default class Hero extends React.Component {
         {this.props.foot}
       </div>
       : undefined;
-    return <section className={classString(classes, this.props.className)}>
+    return <section className={clsx(classes, this.props.className)}>
       {headElement}
-      <div className={classString(["hero-body"], this.props.contentClassName)}>
+      <div className={clsx(["hero-body"], this.props.contentClassName)}>
         {this.props.children}
       </div>
       {footElement}

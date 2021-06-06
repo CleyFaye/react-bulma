@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ControlledInput from "./controlledinput.js";
-import {classString} from "../utils/class.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   classNamePropType,
   allModifiersPropList,
 } from "../utils/props.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -37,7 +37,7 @@ export default class Checkbox extends ControlledInput {
     const classes = ["checkbox"];
     bringAll(classes, this.props);
     return <label
-      className={classString(classes, this.props.className)}
+      className={clsx(classes, this.props.className)}
       disabled={this.props.disabled}
     >
       <input

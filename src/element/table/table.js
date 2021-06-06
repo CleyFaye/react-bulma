@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {classNamePropType} from "../../utils/props.js";
-import {classString} from "../../utils/class.js";
+import clsx from "clsx";
 
 export default class Table extends React.Component {
   render() {
     const classes = ["table"];
-    return <table className={classString(classes, this.props.className)}>
+    return <table className={clsx(classes, this.props.className)}>
       {this.props.children}
     </table>;
   }

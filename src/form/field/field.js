@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../../utils/class.js";
 import {bringAll} from "../../utils/modifier.js";
 import {
   classNamePropType,
   allModifiersPropList,
 } from "../../utils/props.js";
 import {renderChildrenWithProps} from "../../utils/children.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -64,7 +64,7 @@ export default class Field extends React.Component {
     const helpElement = this.props.help
       ? <p className="help">{this.props.help}</p>
       : undefined;
-    return <div className={classString(classes, this.props.className)}>
+    return <div className={clsx(classes, this.props.className)}>
       {this._renderChildren()}
       {helpElement}
     </div>;

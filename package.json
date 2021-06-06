@@ -53,5 +53,8 @@
     "core-js": {
       "optional": false
     }
+  },
+  "dependencies": {
+    "clsx": "^1.1.1"
   }
 }

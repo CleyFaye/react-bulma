@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {classNamePropType} from "../../utils/props.js";
-import {classString} from "../../utils/class.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -63,7 +63,7 @@ export default class Menu extends React.Component {
     if (this.state.visible) {
       classes.push("is-visible");
     }
-    return <aside className={classString(classes, this.props.className)}>
+    return <aside className={clsx(classes, this.props.className)}>
       {this._renderChilds(this.props.children)}
     </aside>;
   }

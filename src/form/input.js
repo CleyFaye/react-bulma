@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ControlledInput from "./controlledinput.js";
-import {classString} from "../utils/class.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   classNamePropType,
   allModifiersPropList,
 } from "../utils/props.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -48,7 +48,7 @@ export default class Input extends ControlledInput {
       classes.push("is-static");
     }
     return <input
-      className={classString(classes, this.props.className)}
+      className={clsx(classes, this.props.className)}
       name={this.props.name}
       type={this.props.type}
       placeholder={this.props.placeholder}

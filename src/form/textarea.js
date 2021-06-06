@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ControlledInput from "./controlledinput.js";
-import {classString} from "../utils/class.js";
 import {bringAll} from "../utils/modifier.js";
 import {
   classNamePropType,
   allModifiersPropList,
 } from "../utils/props.js";
+import clsx from "clsx";
 
 /**
  * Props:
@@ -45,7 +45,7 @@ export default class Textarea extends ControlledInput {
       onKeyUp={this.handleChange}
       readOnly={this.getReadOnly()}
       value={this.props.value}
-      className={classString(classes, this.props.className)}
+      className={clsx(classes, this.props.className)}
     />;
   }
 }

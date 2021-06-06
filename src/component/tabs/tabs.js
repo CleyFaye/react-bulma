@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {classNamePropType} from "../../utils/props.js";
-import {classString} from "../../utils/class.js";
+import clsx from "clsx";
 
 /**
  * Basic tabs element.
@@ -32,7 +32,7 @@ export default class Tabs extends React.Component {
   render() {
     const classes = ["tabs"];
     const childArray = React.Children.toArray(this.props.children);
-    return <div className={classString(classes, this.props.className)}>
+    return <div className={clsx(classes, this.props.className)}>
       <ul>
         {childArray.map((child, activeTab) => {
           if (this.props.tabViewRef
