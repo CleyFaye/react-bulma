@@ -10,6 +10,7 @@ const licenseJS = [
   " */",
 ].join("\n");
 
+// eslint-disable-next-line max-lines-per-function
 module.exports = grunt => {
   loadGruntTasks(grunt);
 
@@ -63,7 +64,7 @@ module.exports = grunt => {
     [
       "babel:build",
       "usebanner:build",
-    ]
+    ],
   );
   grunt.registerTask(
     "default",

@@ -1,15 +1,16 @@
 import PropTypes from "prop-types";
 
-import {boolList} from "./const";
-import {boolProp} from "./transform";
-
-import {colorList} from "./const";
-import {fullColorList} from "./const";
-import {sizeList} from "./const";
-import {alignmentList} from "./const";
-import {capitalizationList} from "./const";
-import {textWeightList} from "./const";
-import {breakpointList} from "./const";
+import {
+  boolList,
+  colorList,
+  fullColorList,
+  sizeList,
+  alignmentList,
+  capitalizationList,
+  textWeightList,
+  breakpointList,
+} from "./const.js";
+import {boolProp} from "./transform.js";
 
 /** Create a list of boolean options suitable to use as the supportedOptions
  * argument for addClassesFromOptions().
@@ -78,6 +79,7 @@ export const responsiveProps = PropTypes.oneOfType([
 export const colorOverrideProps = PropTypes.oneOf(fullColorList);
 
 /** PropTypes for text size modifier */
+// eslint-disable-next-line no-magic-numbers
 export const textSizeProps = PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7]);
 
 /** PropTypes for text alignment modifiers */

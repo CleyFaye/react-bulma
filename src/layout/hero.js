@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {allModifiersPropList} from "../utils/props";
-import {classNamePropType} from "../utils/props";
+import {classString} from "../utils/class.js";
+import {bringAll} from "../utils/modifier.js";
+import {
+  allModifiersPropList,
+  classNamePropType,
+} from "../utils/props.js";
 
 /**
  * Props:
@@ -29,12 +31,12 @@ export default class Hero extends React.Component {
       classes.push("is-bold");
     }
     bringAll(classes, this.props);
-    let headElement = this.props.head
+    const headElement = this.props.head
       ? <div className="hero-head">
         {this.props.head}
       </div>
       : undefined;
-    let footElement = this.props.foot
+    const footElement = this.props.foot
       ? <div className="hero-foot">
         {this.props.foot}
       </div>
@@ -51,10 +53,19 @@ export default class Hero extends React.Component {
 Hero.propTypes = {
   className: classNamePropType,
   contentClassName: classNamePropType,
-  ...allModifiersPropList,
   gradient: PropTypes.bool,
   fullheight: PropTypes.bool,
-  children: PropTypes.node,
   head: PropTypes.node,
   foot: PropTypes.node,
+  children: PropTypes.node.isRequired,
+  ...allModifiersPropList,
 };
+Hero.defaultProps = {
+  className: undefined,
+  contentClassName: undefined,
+  gradient: false,
+  fullheight: false,
+  head: undefined,
+  foot: undefined,
+};
+Hero.displayName = "Hero";

@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ControlledInput from "./controlledinput";
-import {classString} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {classNamePropType} from "../utils/props";
-import {allModifiersPropList} from "../utils/props";
+import ControlledInput from "./controlledinput.js";
+import {classString} from "../utils/class.js";
+import {bringAll} from "../utils/modifier.js";
+import {
+  classNamePropType,
+  allModifiersPropList,
+} from "../utils/props.js";
 
 /**
  * Props:
@@ -22,17 +24,28 @@ import {allModifiersPropList} from "../utils/props";
  * See form.Input for details on stateObj
  */
 export default class Checkbox extends ControlledInput {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(ev) {
+    this.setStateValue(ev.target.checked);
+  }
+
   render() {
     const classes = ["checkbox"];
     bringAll(classes, this.props);
     return <label
       className={classString(classes, this.props.className)}
-      disabled={this.props.disabled}>
+      disabled={this.props.disabled}
+    >
       <input
         type="checkbox"
         checked={this.props.value}
         disabled={this.props.disabled}
-        onChange={ev => this.setStateValue(ev.target.checked)} />
+        onChange={this.handleChange}
+      />
       {this.props.children}
     </label>;
   }
@@ -42,3 +55,8 @@ Checkbox.propTypes = {
   disabled: PropTypes.bool,
   ...allModifiersPropList,
 };
+Checkbox.defaultProps = {
+  className: undefined,
+  disabled: false,
+};
+Checkbox.displayName = "Checkbox";

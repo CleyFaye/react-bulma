@@ -1,7 +1,9 @@
 import React from "react";
 
+// TODO use @cley_faye/react-utils instead
+
 /** Helper to use React components with promise and inheritance.
- * 
+ *
  * In addition to being able to use the methods of this class, you should not
  * initialize the state with an assignment but use the prepareState() method.
  *
@@ -19,7 +21,7 @@ export default class Component extends React.Component {
   }
 
   /** Put properties in the state.
-   * 
+   *
    * Instead of doing `this.state = {/*...*\/}` in the constructor call this
    * method; it makes sure that when you inherit you don't erase the state
    * from other classes.
@@ -29,10 +31,10 @@ export default class Component extends React.Component {
   }
 
   /** Update the state (replace setState())
-   * 
+   *
    * @param {object|function} state
    * Same behavior as setState()
-   * 
+   *
    * @returns {Promise}
    * The promise resolve when the state is applied
    */
@@ -46,3 +48,4 @@ export default class Component extends React.Component {
     });
   }
 }
+Component.displayName = "Component";

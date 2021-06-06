@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {allModifiersPropList} from "../utils/props";
-import {classNamePropType} from "../utils/props";
+import {classString} from "../utils/class.js";
+import {bringAll} from "../utils/modifier.js";
+import {
+  allModifiersPropList,
+  classNamePropType,
+} from "../utils/props.js";
 
 /**
  * Props:
@@ -21,7 +23,9 @@ export default class Section extends React.Component {
   }
 }
 Section.propTypes = {
-  ...allModifiersPropList,
   className: classNamePropType,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
+  ...allModifiersPropList,
 };
+Section.defaultProps = {className: undefined};
+Section.displayName = "Section";

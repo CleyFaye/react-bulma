@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ControlledInput from "./controlledinput";
-import {classString} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {classNamePropType} from "../utils/props";
-import {allModifiersPropList} from "../utils/props";
+import ControlledInput from "./controlledinput.js";
+import {classString} from "../utils/class.js";
+import {bringAll} from "../utils/modifier.js";
+import {
+  classNamePropType,
+  allModifiersPropList,
+} from "../utils/props.js";
 
 /**
  * Props:
@@ -20,21 +22,31 @@ import {allModifiersPropList} from "../utils/props";
  * - name: HTML name property for the form
  * - stateObj: object with both state and setState to handle updates
  * - All bulma modifiers
- * 
+ *
  * See form.Input for stateObj behavior.
  */
 export default class Textarea extends ControlledInput {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(ev) {
+    this.setStateValue(ev.target.value);
+  }
+
   render() {
     const classes = ["textarea"];
     bringAll(classes, this.props);
     return <textarea
       rows={this.props.rows}
       placeholder={this.props.placeholder}
-      onChange={ev => this.setStateValue(ev.target.value)}
-      onKeyUp={ev => this.setStateValue(ev.target.value)}
+      onChange={this.handleChange}
+      onKeyUp={this.handleChange}
       readOnly={this.getReadOnly()}
       value={this.props.value}
-      className={classString(classes, this.props.className)} />;
+      className={classString(classes, this.props.className)}
+    />;
   }
 }
 Textarea.propTypes = {
@@ -44,3 +56,10 @@ Textarea.propTypes = {
   value: PropTypes.string,
   ...allModifiersPropList,
 };
+Textarea.defaultProps = {
+  className: undefined,
+  rows: undefined,
+  placeholder: undefined,
+  value: "",
+};
+Textarea.displayName = "Textarea";

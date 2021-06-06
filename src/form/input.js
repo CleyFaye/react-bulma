@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ControlledInput from "./controlledinput";
-import {classString} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {classNamePropType} from "../utils/props";
-import {allModifiersPropList} from "../utils/props";
+import ControlledInput from "./controlledinput.js";
+import {classString} from "../utils/class.js";
+import {bringAll} from "../utils/modifier.js";
+import {
+  classNamePropType,
+  allModifiersPropList,
+} from "../utils/props.js";
 
 /**
  * Props:
@@ -30,8 +32,13 @@ import {allModifiersPropList} from "../utils/props";
  * automatically.
  */
 export default class Input extends ControlledInput {
-  _getType() {
-    return this.props.type || "text";
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(ev) {
+    this.setStateValue(ev.target.value);
   }
 
   render() {
@@ -40,10 +47,10 @@ export default class Input extends ControlledInput {
     if (this.props.static) {
       classes.push("is-static");
     }
-    return <input 
+    return <input
       className={classString(classes, this.props.className)}
       name={this.props.name}
-      type={this._getType()}
+      type={this.props.type}
       placeholder={this.props.placeholder}
       autoComplete={this.props.autoComplete}
       value={this.props.value}
@@ -53,7 +60,8 @@ export default class Input extends ControlledInput {
       min={this.props.min}
       max={this.props.max}
       step={this.props.step}
-      onChange={ev => this.setStateValue(ev.target.value)} />;
+      onChange={this.handleChange}
+    />;
   }
 }
 Input.propTypes = {
@@ -75,3 +83,16 @@ Input.propTypes = {
   step: PropTypes.number,
   ...allModifiersPropList,
 };
+Input.defaultProps = {
+  className: undefined,
+  type: "text",
+  placeholder: undefined,
+  static: false,
+  disabled: false,
+  autoComplete: undefined,
+  inputRef: undefined,
+  min: undefined,
+  max: undefined,
+  step: undefined,
+};
+Input.displayName = "Input";

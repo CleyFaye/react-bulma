@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {classNamePropType} from "../utils/props";
-import {allModifiersPropList} from "../utils/props";
-import {renderChildrenWithProps} from "../utils/children";
+import {classString} from "../utils/class.js";
+import {bringAll} from "../utils/modifier.js";
+import {
+  classNamePropType,
+  allModifiersPropList,
+} from "../utils/props.js";
+import {renderChildrenWithProps} from "../utils/children.js";
 
 /**
  * Props:
@@ -16,9 +18,8 @@ export default class Label extends React.Component {
   renderChildren() {
     return renderChildrenWithProps(
       this.props,
-      {
-        size: true,
-      });
+      {size: true},
+    );
   }
 
   render() {
@@ -31,6 +32,8 @@ export default class Label extends React.Component {
 }
 Label.propTypes = {
   className: classNamePropType,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   ...allModifiersPropList,
 };
+Label.defaultProps = {className: undefined};
+Label.displayName = "Label";

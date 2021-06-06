@@ -1,16 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {bringModifiers} from "../utils/modifier";
-import {classNamePropType} from "../utils/props";
-import {allModifiersPropList} from "../utils/props";
-import {renderChildrenWithProps} from "../utils/children";
+import {classString} from "../utils/class.js";
+import {
+  bringAll,
+  bringModifiers,
+} from "../utils/modifier.js";
+import {
+  classNamePropType,
+  allModifiersPropList,
+} from "../utils/props.js";
+import {renderChildrenWithProps} from "../utils/children.js";
 
 /**
  * For holding input, select, button.
- * 
+ *
  * Props:
  * - className
  * - iconLeft
@@ -22,10 +26,10 @@ import {renderChildrenWithProps} from "../utils/children";
  */
 export default class Control extends React.Component {
   /** Prepare one icon.
-   * 
+   *
    * @param {Node} iconProp
    * @param {string} position
-   * 
+   *
    * @returns {Object}
    * The prepared icon (or undefined if no icon provided)
    */
@@ -42,9 +46,9 @@ export default class Control extends React.Component {
   }
 
   /** Prepare the icons.
-   * 
+   *
    * @param {Array.<{string}>} controlClasses
-   * 
+   *
    * @return {Array.<{object}>}
    * Array of elements to display.
    */
@@ -64,9 +68,8 @@ export default class Control extends React.Component {
   _renderChildren() {
     return renderChildrenWithProps(
       this.props,
-      {
-        size: true,
-      });
+      {size: true},
+    );
   }
 
   render() {
@@ -87,11 +90,21 @@ export default class Control extends React.Component {
 }
 Control.propTypes = {
   className: classNamePropType,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   iconLeft: PropTypes.node,
   iconRight: PropTypes.node,
+  // eslint-disable-next-line react/no-unused-prop-types
   iconSize: allModifiersPropList.size,
   expanded: PropTypes.bool,
   stateObj: PropTypes.object,
   ...allModifiersPropList,
 };
+Control.defaultProps = {
+  className: undefined,
+  iconLeft: undefined,
+  iconRight: undefined,
+  iconSize: undefined,
+  expanded: false,
+  stateObj: undefined,
+};
+Control.displayName = "Control";

@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ControlledInput from "./controlledinput";
-import {classString} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {classNamePropType} from "../utils/props";
-import {allModifiersPropList} from "../utils/props";
+import ControlledInput from "../controlledinput.js";
+import {classString} from "../../utils/class.js";
+import {bringAll} from "../../utils/modifier.js";
+import {
+  classNamePropType,
+  allModifiersPropList,
+} from "../../utils/props.js";
 
 /**
  * Props:
@@ -20,14 +22,20 @@ import {allModifiersPropList} from "../utils/props";
  * - stateObj: object with both state and setState to handle updates
  * - multiple
  * - All bulma modifiers
- * 
+ *
  * See form.Input for stateObj behavior.
- * 
+ *
  * @note
  * Use Select.Option for options
  */
 export default class Select extends ControlledInput {
-  _handleChange(elem) {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(ev) {
+    const elem = ev.target;
     if (this.props.multiple) {
       const values = Array.from(elem.selectedOptions).map(opt => opt.value);
       this.setStateValue(values);
@@ -41,12 +49,14 @@ export default class Select extends ControlledInput {
     bringAll(classes, this.props);
     return <div
       readOnly={this.getReadOnly()}
-      className={classString(classes, this.props.className)}>
+      className={classString(classes, this.props.className)}
+    >
       <select
         multiple={this.props.multiple}
         disabled={this.props.disabled}
         value={this.props.value}
-        onChange={ev => this._handleChange(ev.target)}>
+        onChange={this.handleChange}
+      >
         {this.props.children}
       </select>
     </div>;
@@ -56,30 +66,12 @@ Select.propTypes = {
   className: classNamePropType,
   multiple: PropTypes.bool,
   disabled: PropTypes.bool,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   ...allModifiersPropList,
 };
-
-/**
- * Props:
- * - className
- * - value
- * - All Bulma modifiers
- */
-class Option extends React.Component {
-  render() {
-    const classes = [];
-    return <option
-      className={classString(classes, this.props.className)}
-      value={this.props.value}
-    >
-      {this.props.children}
-    </option>;
-  }
-}
-Option.propTypes = {
-  className: classNamePropType,
-  value: PropTypes.string,
-  children: PropTypes.node,
+Select.defaultProps = {
+  className: undefined,
+  multiple: false,
+  disabled: false,
 };
-Select.Option = Option;
+Select.displayName = "Select";

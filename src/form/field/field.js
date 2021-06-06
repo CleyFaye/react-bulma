@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {classNamePropType} from "../utils/props";
-import {allModifiersPropList} from "../utils/props";
-import {renderChildrenWithProps} from "../utils/children";
+import {classString} from "../../utils/class.js";
+import {bringAll} from "../../utils/modifier.js";
+import {
+  classNamePropType,
+  allModifiersPropList,
+} from "../../utils/props.js";
+import {renderChildrenWithProps} from "../../utils/children.js";
 
 /**
  * Props:
@@ -18,7 +20,7 @@ import {renderChildrenWithProps} from "../utils/children";
  * to left)
  * - horizontal(bool): display label and control on the same line
  * - All bulma modifiers
- * 
+ *
  * @note
  * Using horizontal field require wrapping the label and content respectively
  * in Field.Label and Field.Body
@@ -27,17 +29,20 @@ export default class Field extends React.Component {
   /** Add the position class for the specified bundle type */
   _addPosition(classes, bundleType) {
     switch (this.props.position) {
-    case "center": classes.push(`has-${bundleType}-centered`); break;
-    case "right": classes.push(`has-${bundleType}-right`); break;
+    case "center":
+      classes.push(`has-${bundleType}-centered`);
+      break;
+    case "right":
+      classes.push(`has-${bundleType}-right`);
+      break;
     }
   }
 
   _renderChildren() {
     return renderChildrenWithProps(
-      this.props, 
-      {
-        size: true,
-      });
+      this.props,
+      {size: true},
+    );
   }
 
   render() {
@@ -67,72 +72,23 @@ export default class Field extends React.Component {
 }
 Field.propTypes = {
   className: classNamePropType,
-  children: PropTypes.node,
+  // eslint-disable-next-line react/no-unused-prop-types
+  children: PropTypes.node.isRequired,
   help: PropTypes.string,
   addons: PropTypes.bool,
-  group:PropTypes.bool,
+  group: PropTypes.bool,
   horizontal: PropTypes.bool,
   multiline: PropTypes.bool,
   position: PropTypes.oneOf(["left", "center", "right"]),
   ...allModifiersPropList,
 };
-
-/**
- * Props:
- * - className
- * - All Bulma modifiers
- */
-class Label extends React.Component {
-  _renderChildren() {
-    return renderChildrenWithProps(
-      this.props, 
-      {
-        size: true,
-      });
-  }
-
-  render() {
-    const classes = ["field-label"];
-    bringAll(classes, this.props);
-    return <div className={classString(classes, this.props.className)}>
-      {this._renderChildren()}
-    </div>;
-  }
-}
-Label.propTypes = {
-  className: classNamePropType,
-  children: PropTypes.node,
-  ...allModifiersPropList,
+Field.defaultProps = {
+  className: undefined,
+  help: undefined,
+  addons: false,
+  group: false,
+  horizontal: false,
+  multiline: false,
+  position: undefined,
 };
-Field.Label = Label;
-
-/**
- * Props:
- * - className
- * - All Bulma modifiers
- */
-class Body extends React.Component {
-  _renderChildren() {
-    return renderChildrenWithProps(
-      this.props, 
-      {
-        size: true,
-      });
-  }
-
-  render() {
-    const classes = ["field-body"];
-    bringAll(classes, this.props);
-    return <div className={classString(classes, this.props.className)}>
-      <Field>
-        {this._renderChildren()}
-      </Field>
-    </div>;
-  }
-}
-Body.propTypes = {
-  className: classNamePropType,
-  children: PropTypes.node,
-  ...allModifiersPropList,
-};
-Field.Body = Body;
+Field.displayName = "Field";

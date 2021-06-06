@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Component from "../utils/component";
-import {classString} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {allModifiersPropList} from "../utils/props";
-import {classNamePropType} from "../utils/props";
+import Component from "../utils/component.js";
+import {classString} from "../utils/class.js";
+import {bringAll} from "../utils/modifier.js";
+import {
+  allModifiersPropList,
+  classNamePropType,
+} from "../utils/props.js";
 
 /**
  * Props:
@@ -18,17 +20,15 @@ import {classNamePropType} from "../utils/props";
 export default class Notification extends Component {
   constructor(props) {
     super(props);
-    this.prepareState({
-      closed: this.props.initiallyClosed,
-    });
-    this.close = this.close.bind(this);
+    this.prepareState({closed: this.props.initiallyClosed});
+    this.handleClose = this.handleClose.bind(this);
   }
 
   /** Close the notification.
    *
    * Closed notification is invisible and does not occupy space.
    */
-  close() {
+  handleClose() {
     if (this.props.onClose) {
       if (this.props.onClose() === false) {
         return;
@@ -48,8 +48,10 @@ export default class Notification extends Component {
   _renderCloseButton() {
     if (this.props.closeable) {
       return <button
+        type="button"
         className="delete"
-        onClick={this.close} />;
+        onClick={this.handleClose}
+      />;
     }
     return null;
   }
@@ -68,9 +70,16 @@ export default class Notification extends Component {
 }
 Notification.propTypes = {
   className: classNamePropType,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   closeable: PropTypes.bool,
   onClose: PropTypes.func,
   initiallyClosed: PropTypes.bool,
   ...allModifiersPropList,
 };
+Notification.defaultProps = {
+  className: undefined,
+  closeable: false,
+  onClose: undefined,
+  initiallyClosed: false,
+};
+Notification.displayName = "Notification";

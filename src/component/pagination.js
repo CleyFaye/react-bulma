@@ -1,12 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {boolOptions} from "../utils/props";
-import {classNamePropType} from "../utils/props";
-import {modifiersPropsList} from "../utils/props";
-import {bringAll} from "../utils/modifier";
-import {addClassesFromOptions} from "../utils/class";
-import {classString} from "../utils/class";
+import {
+  boolOptions,
+  classNamePropType,
+  modifiersPropsList,
+} from "../utils/props.js";
+import {bringAll} from "../utils/modifier.js";
+import {
+  addClassesFromOptions,
+  classString,
+} from "../utils/class.js";
 
 /**
  * Props:
@@ -24,7 +28,17 @@ import {classString} from "../utils/class";
  * - onSelect: callback that receive the newly selected page
  */
 export default class Pagination extends React.Component {
-  handleClick(pageId) {
+  static _createEllipsis() {
+    return <li><span className="pagination-ellipsis">&hellip;</span></li>;
+  }
+
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(ev) {
+    const pageId = parseInt(ev.target.dataset.pageId, 10);
     if (this.props.onSelect) {
       this.props.onSelect(pageId);
     }
@@ -35,15 +49,15 @@ export default class Pagination extends React.Component {
   }
 
   _getPageFirst() {
-    return (this.props.pageCount !== undefined)
-      ? 1
-      : this.props.start;
+    return (this.props.pageCount === undefined)
+      ? this.props.start
+      : 1;
   }
 
   _getPageLast() {
-    return (this.props.pageCount !== undefined)
-      ? this.props.pageCount
-      : this.props.end;
+    return (this.props.pageCount === undefined)
+      ? this.props.end
+      : this.props.pageCount;
   }
 
   _getMaxVisible() {
@@ -54,12 +68,14 @@ export default class Pagination extends React.Component {
 
   /** Maximum size of the "central group" of buttons */
   _centralGroupMaxSize() {
-    return this._getMaxVisible() - 2;
+    const skipFirstAndLast = 2;
+    return this._getMaxVisible() - skipFirstAndLast;
   }
 
   /** Maximum number of buttons on each side of the "current" page */
   _centralGroupSideSize() {
-    return Math.ceil(this._centralGroupMaxSize() / 2);
+    const halfDivider = 2;
+    return Math.ceil(this._centralGroupMaxSize() / halfDivider);
   }
 
   _current() {
@@ -90,27 +106,25 @@ export default class Pagination extends React.Component {
   }
 
   _createButton(page) {
-    const className = (page == this._current())
+    const className = (page === this._current())
       ? "pagination-link is-current"
       : "pagination-link";
     return <li key={page}>
       <a
         className={className}
-        onClick={() => this.handleClick(page)}>
+        data-page-id={page}
+        onClick={this.handleClick}
+      >
         {page}
       </a>
     </li>;
-  }
-
-  _createEllipsis() {
-    return <li><span className="pagination-ellipsis">&hellip;</span></li>;
   }
 
   render() {
     const buttons = [];
     buttons.push(this._createButton(this._getPageFirst()));
     if (this._haveEllipsisLeft()) {
-      buttons.push(this._createEllipsis());
+      buttons.push(Pagination._createEllipsis());
     }
     for (let index = this._centralLeftBound(),
       last = this._centralRightBound();
@@ -119,18 +133,18 @@ export default class Pagination extends React.Component {
       buttons.push(this._createButton(index));
     }
     if (this._haveEllipsisRight()) {
-      buttons.push(this._createEllipsis());
+      buttons.push(Pagination._createEllipsis());
     }
-    if (this._getPageCount() != 1) {
+    if (this._getPageCount() !== 1) {
       buttons.push(this._createButton(this._getPageLast()));
     }
 
     const buttonSection = this.props.hideButtons
       ? undefined
-      : <React.Fragment>
-        <a className="pagination-previous">{this.props.previousLabel || "Previous"}</a>
-        <a className="pagination-next">{this.props.nextLabel || "Next"}</a>
-      </React.Fragment>;
+      : <>
+        <a className="pagination-previous">{this.props.previousLabel}</a>
+        <a className="pagination-next">{this.props.nextLabel}</a>
+      </>;
 
     const navClasses = ["pagination"];
     addClassesFromOptions(
@@ -139,12 +153,14 @@ export default class Pagination extends React.Component {
       undefined,
       boolOptions([
         "rounded",
-      ]));
+      ]),
+    );
     bringAll(navClasses, this.props, {size: true});
 
     return <nav
       className={classString(navClasses, this.props.className)}
-      role="navigation">
+      role="navigation"
+    >
       {buttonSection}
       <ul className="pagination-list">
         {buttons}
@@ -155,14 +171,31 @@ export default class Pagination extends React.Component {
 Pagination.propTypes = {
   className: classNamePropType,
   start: PropTypes.number,
-  current: PropTypes.number,
+  current: PropTypes.number.isRequired,
   end: PropTypes.number,
   pageCount: PropTypes.number,
   maxVisible: PropTypes.number,
   hideButtons: PropTypes.bool,
   previousLabel: PropTypes.string,
   nextLabel: PropTypes.string,
+  // eslint-disable-next-line react/no-unused-prop-types
   rounded: PropTypes.bool,
+  // eslint-disable-next-line react/no-unused-prop-types
   size: modifiersPropsList.size,
+  // eslint-disable-next-line react/no-unused-prop-types
   onSelect: PropTypes.func,
 };
+Pagination.defaultProps = {
+  className: undefined,
+  start: undefined,
+  end: undefined,
+  pageCount: undefined,
+  maxVisible: undefined,
+  hideButtons: undefined,
+  previousLabel: "Previous",
+  nextLabel: "Next",
+  rounded: false,
+  size: undefined,
+  onSelect: undefined,
+};
+Pagination.displayName = "Pagination";

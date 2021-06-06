@@ -1,12 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {classString} from "../utils/class";
-import {addBreakpoint} from "../utils/class";
-import {bringAll} from "../utils/modifier";
-import {breakpointPropType} from "../utils/props";
-import {classNamePropType} from "../utils/props";
-import {allModifiersPropList} from "../utils/props";
+import {
+  classString,
+  addBreakpoint,
+} from "../utils/class.js";
+import {bringAll} from "../utils/modifier.js";
+import {
+  breakpointPropType,
+  classNamePropType,
+  allModifiersPropList,
+} from "../utils/props.js";
 
 /**
  * Props:
@@ -30,9 +34,15 @@ export default class Container extends React.Component {
   }
 }
 Container.propTypes = {
-  fluid: PropTypes.bool,
   className: classNamePropType,
+  fluid: PropTypes.bool,
   breakpoint: breakpointPropType,
+  children: PropTypes.node.isRequired,
   ...allModifiersPropList,
-  children: PropTypes.node,
 };
+Container.defaultProps = {
+  className: undefined,
+  fluid: false,
+  breakpoint: undefined,
+};
+Container.displayName = "Container";

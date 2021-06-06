@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {bringAll} from "../utils/modifier";
-import {classNameProptype} from "../utils/props";
-import {allModifiersPropList} from "../utils/props";
-import {classString} from "../utils/class";
+import {bringAll} from "../utils/modifier.js";
+import {
+  classNameProptype,
+  allModifiersPropList,
+} from "../utils/props.js";
+import {classString} from "../utils/class.js";
 
 /**
  * Props:
@@ -22,6 +24,8 @@ export default class Footer extends React.Component {
 }
 Footer.propTypes = {
   className: classNameProptype,
+  children: PropTypes.node.isRequired,
   ...allModifiersPropList,
-  children: PropTypes.node,
 };
+Footer.defaultProps = {className: undefined};
+Footer.displayName = "Footer";

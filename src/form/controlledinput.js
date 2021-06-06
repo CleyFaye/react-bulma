@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+// TODO turn that into a mixin (or leverage @cley_faye/react-utils)
+
 /** A base for all component that have their value controlled somewhere else.
- * 
+ *
  * Props:
  * - stateName: default to name
  * - name
@@ -46,6 +48,16 @@ ControlledInput.propTypes = {
   stateName: PropTypes.string,
   name: PropTypes.string,
   stateObj: PropTypes.object,
+  // eslint-disable-next-line react/no-unused-prop-types
   value: PropTypes.any,
   readOnly: PropTypes.bool,
 };
+ControlledInput.defaultProps = {
+  onChange: undefined,
+  stateName: undefined,
+  name: undefined,
+  stateObj: undefined,
+  value: undefined,
+  readOnly: false,
+};
+ControlledInput.displayName = "ControlledInput";
